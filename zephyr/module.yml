@@ -1,4 +1,5 @@
 name: Cygnus
 build:
+  cmake: .
   settings:
     board_root: config
