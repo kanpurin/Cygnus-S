@@ -3,3 +3,4 @@ build:
   cmake: .
   settings:
     board_root: config
+    dts_root: .
