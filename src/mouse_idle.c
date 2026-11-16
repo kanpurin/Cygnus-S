@@ -18,17 +18,18 @@
 #define WHEEL_CLICK_POSITION 32
 #define GESTURE_POSITION 33
 #define GESTURE_THRESHOLD 24
+#define GESTURE_REPEAT_MS 80
 
 static struct k_spinlock gesture_lock;
 static bool gesture_held;
-static bool arrow_sent;
+static int64_t next_arrow_at;
 static int32_t gesture_x;
 static void record_activity(void);
 
 static void set_gesture_held(bool held) {
     k_spinlock_key_t key = k_spin_lock(&gesture_lock);
     gesture_held = held;
-    arrow_sent = false;
+    next_arrow_at = 0;
     gesture_x = 0;
     k_spin_unlock(&gesture_lock, key);
 }
@@ -42,16 +43,20 @@ static int process_arrow_gesture(const struct device *dev, struct input_event *e
         return ZMK_INPUT_PROC_CONTINUE;
     }
 
+    const int64_t now = k_uptime_get();
     uint32_t arrow = 0;
     bool moved = false;
     k_spinlock_key_t key = k_spin_lock(&gesture_lock);
     if (gesture_held) {
         moved = event->value != 0;
-        if (event->code == INPUT_REL_X && !arrow_sent) {
-            gesture_x += event->value;
-            if (gesture_x <= -GESTURE_THRESHOLD || gesture_x >= GESTURE_THRESHOLD) {
+        if (event->code == INPUT_REL_X && event->value != 0) {
+            // Keep at most one step queued so fast motion cannot build up a burst.
+            gesture_x = CLAMP(gesture_x + event->value, -GESTURE_THRESHOLD, GESTURE_THRESHOLD);
+            if (now >= next_arrow_at &&
+                (gesture_x <= -GESTURE_THRESHOLD || gesture_x >= GESTURE_THRESHOLD)) {
                 arrow = gesture_x < 0 ? LEFT_ARROW : RIGHT_ARROW;
-                arrow_sent = true;
+                gesture_x = 0;
+                next_arrow_at = now + GESTURE_REPEAT_MS;
             }
         }
         event->value = 0;
@@ -62,7 +67,6 @@ static int process_arrow_gesture(const struct device *dev, struct input_event *e
         record_activity();
     }
     if (arrow) {
-        int64_t now = k_uptime_get();
         raise_zmk_keycode_state_changed_from_encoded(arrow, true, now);
         raise_zmk_keycode_state_changed_from_encoded(arrow, false, now);
     }
