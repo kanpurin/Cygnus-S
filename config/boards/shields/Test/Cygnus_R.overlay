@@ -19,7 +19,13 @@
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
-        input-processors = <&zip_y_scaler 3 2>;
+        // A zero timeout keeps Layer 4 active until a non-excluded key is pressed.
+        input-processors = <&zip_y_scaler 3 2>, <&zip_temp_layer 4 0>;
+
+        // Scroll events should not activate the mouse layer.
+        scroll {
+            layers = <5>;
+        };
 
     };
 };
@@ -59,9 +65,13 @@
         reg = <0>;
         spi-max-frequency = <2000000>;
         irq-gpios = <&gpio0 2 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        automouse-layer = <4>;
         scroll-layers = <5>;
     };
 };
 
 
+
+&zip_temp_layer {
+    // Non-transparent bindings in the current Cygnus-S mouse layer.
+    excluded-positions = <2 3 4 5 6 7 10 11 12 13 14 15 17 18 19 20 21 27 30 31 32 33>;
+};
