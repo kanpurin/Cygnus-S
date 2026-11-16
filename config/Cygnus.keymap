@@ -41,6 +41,25 @@
     };
 
     behaviors {
+        layer1_hold_only: layer1_hold_only {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <200>;
+            bindings = <&mo>, <&none>;
+            display-name = "Hold Layer 1";
+        };
+
+        z_tap_only: z_tap_only {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <200>;
+            quick-tap-ms = <0>;
+            bindings = <&none>, <&kp>;
+            display-name = "Tap Z Only";
+        };
+
         lt_to_layer_0: lt_to_layer_0 {
             compatible = "zmk,behavior-hold-tap";
             label = "LAYER_TAP_TO_0";
@@ -67,8 +86,8 @@
             bindings = <
 &kp Q             &kp W         &kp E         &kp R                  &kp T                                                   &kp Y        &kp U  &kp I      &kp O    &kp P
 &kp A             &kp S         &kp D         &kp F                  &kp G        &mkp RCLK                  &kp UP_ARROW    &kp H        &kp J  &kp K      &lt 4 L  &lt 5 MINUS
-&mt LEFT_SHIFT Z  &kp X         &kp C         &kp V                  &kp B        &mkp LCLK                  &kp DOWN_ARROW  &kp N        &kp M  &kp COMMA  &kp DOT  &mt LEFT_SHIFT SLASH
-&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt 6 INTERNATIONAL_4  &lt 1 SPACE  &lt 3 INTERNATIONAL_5      &kp BACKSPACE   &lt 2 ENTER                             &kp DEL
+&z_tap_only 0 Z  &kp X         &kp C         &kp V                  &kp B        &mkp LCLK                  &kp DOWN_ARROW  &kp N        &kp M  &kp COMMA  &kp DOT  &mt LEFT_SHIFT SLASH
+&kp LCTRL         &kp LEFT_WIN  &kp LEFT_ALT  &lt 6 INTERNATIONAL_4  &layer1_hold_only 1 0  &lt 3 INTERNATIONAL_5      &kp BACKSPACE   &lt 2 ENTER                             &kp DEL
             >;
 
             sensor-bindings = <&ROTATE SCRL_DOWN SCRL_UP>;
@@ -87,7 +106,7 @@
             bindings = <
 &kp MINUS                   &kp KP_NUMBER_7  &kp KP_NUMBER_8  &kp KP_NUMBER_9  &kp PLUS                                     &kp CARET         &kp AMPERSAND      &kp TILDE       &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS
 &kp SLASH                   &kp KP_NUMBER_4  &kp KP_NUMBER_5  &kp KP_NUMBER_6  &kp ASTERISK  &trans         &kp UNDERSCORE  &kp EXCLAMATION   &kp AT_SIGN        &kp HASH        &kp DOLLAR            &kp PERCENT
-&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL      &trans          &kp LEFT_BRACKET  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
+&mt LEFT_SHIFT KP_NUMBER_0  &kp KP_NUMBER_1  &kp KP_NUMBER_2  &kp KP_NUMBER_3  &kp PERIOD    &kp EQUAL      &trans          &kp N0  &kp RIGHT_BRACKET  &kp LEFT_BRACE  &kp RIGHT_BRACE       &kp BACKSLASH
 &trans                      &trans           &trans           &trans           &trans        &trans         &trans          &trans                                                                     &kp PIPE
             >;
         };
