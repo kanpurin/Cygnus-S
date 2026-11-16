@@ -23,6 +23,7 @@ static struct k_spinlock gesture_lock;
 static bool gesture_held;
 static bool arrow_sent;
 static int32_t gesture_x;
+static void record_activity(void);
 
 static void set_gesture_held(bool held) {
     k_spinlock_key_t key = k_spin_lock(&gesture_lock);
@@ -42,8 +43,10 @@ static int process_arrow_gesture(const struct device *dev, struct input_event *e
     }
 
     uint32_t arrow = 0;
+    bool moved = false;
     k_spinlock_key_t key = k_spin_lock(&gesture_lock);
     if (gesture_held) {
+        moved = event->value != 0;
         if (event->code == INPUT_REL_X && !arrow_sent) {
             gesture_x += event->value;
             if (gesture_x <= -GESTURE_THRESHOLD || gesture_x >= GESTURE_THRESHOLD) {
@@ -55,6 +58,9 @@ static int process_arrow_gesture(const struct device *dev, struct input_event *e
     }
     k_spin_unlock(&gesture_lock, key);
 
+    if (moved) {
+        record_activity();
+    }
     if (arrow) {
         int64_t now = k_uptime_get();
         raise_zmk_keycode_state_changed_from_encoded(arrow, true, now);
