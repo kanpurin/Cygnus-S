@@ -16,11 +16,16 @@
 };
 
 / {
+    cygnus_arrow_gesture: cygnus_arrow_gesture {
+        compatible = "cygnus,arrow-gesture";
+        #input-processor-cells = <0>;
+    };
+
     trackball_listener {
         compatible = "zmk,input-listener";
         device = <&trackball>;
         // A zero timeout keeps Layer 4 active until a non-excluded key is pressed.
-        input-processors = <&zip_y_scaler 3 2>, <&zip_temp_layer 4 0>;
+        input-processors = <&cygnus_arrow_gesture>, <&zip_y_scaler 3 2>, <&zip_temp_layer 4 0>;
 
         // Scroll events should not activate the mouse layer.
         scroll {
@@ -72,6 +77,6 @@
 
 
 &zip_temp_layer {
-    // K, L and the hold-to-scroll key are the only mouse-layer bindings.
-    excluded-positions = <19 20 21>;
+    // Keep the mouse layer on clicks, scroll and arrow gestures.
+    excluded-positions = <19 20 21 32 33>;
 };
