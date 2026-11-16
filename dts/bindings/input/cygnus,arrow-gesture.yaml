@@ -1,0 +1,3 @@
+description: Convert horizontal trackball motion into one arrow key while the gesture key is held.
+compatible: "cygnus,arrow-gesture"
+include: ip_zero_param.yaml
