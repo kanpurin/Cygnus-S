@@ -18,6 +18,13 @@
     combos {
         compatible = "zmk,combos";
 
+        // Default layer positions 19 = K and 20 = L (zero-based).
+        prolonged_sound_mark {
+            bindings = <&kp MINUS>;
+            key-positions = <19 20>;
+            layers = <0>;
+        };
+
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
