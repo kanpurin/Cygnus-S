@@ -72,6 +72,6 @@
 
 
 &zip_temp_layer {
-    // Non-transparent bindings in the current Cygnus-S mouse layer.
-    excluded-positions = <2 3 4 5 6 7 10 11 12 13 14 15 17 18 19 20 21 27 30 31 32 33>;
+    // K, L and the hold-to-scroll key are the only mouse-layer bindings.
+    excluded-positions = <19 20 21>;
 };
