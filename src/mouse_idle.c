@@ -80,9 +80,7 @@ DEVICE_DT_DEFINE(DT_NODELABEL(cygnus_arrow_gesture), NULL, NULL, NULL, NULL, POS
                  CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &arrow_gesture_api);
 #endif
 
-static const uint32_t mouse_positions[] = {
-    DT_PROP(DT_NODELABEL(zip_temp_layer), excluded_positions),
-};
+static const uint32_t mouse_positions[] = DT_PROP(DT_NODELABEL(zip_temp_layer), excluded_positions);
 
 static bool is_mouse_position(uint32_t position) {
     for (size_t index = 0; index < ARRAY_SIZE(mouse_positions); ++index) {
