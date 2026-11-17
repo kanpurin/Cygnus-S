@@ -78,5 +78,5 @@
 
 &zip_temp_layer {
     // Keep the mouse layer on clicks, scroll and arrow gestures.
-    excluded-positions = <19 20 21 32 33>;
+    excluded-positions = <18 19 20 21 32 33>;
 };
