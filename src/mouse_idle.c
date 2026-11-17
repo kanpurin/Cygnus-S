@@ -15,7 +15,6 @@
 
 #define MOUSE_LAYER 4
 #define MOUSE_IDLE_MS 10000U
-#define WHEEL_CLICK_POSITION 32
 #define GESTURE_POSITION 33
 #define GESTURE_THRESHOLD 24
 #define GESTURE_REPEAT_MS 80
@@ -81,6 +80,19 @@ DEVICE_DT_DEFINE(DT_NODELABEL(cygnus_arrow_gesture), NULL, NULL, NULL, NULL, POS
                  CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &arrow_gesture_api);
 #endif
 
+static const uint32_t mouse_positions[] = {
+    DT_PROP(DT_NODELABEL(zip_temp_layer), excluded_positions),
+};
+
+static bool is_mouse_position(uint32_t position) {
+    for (size_t index = 0; index < ARRAY_SIZE(mouse_positions); ++index) {
+        if (mouse_positions[index] == position) {
+            return true;
+        }
+    }
+    return false;
+}
+
 static atomic_t last_activity_ms;
 static void expire_mouse_layer(struct k_work *work);
 static K_WORK_DELAYABLE_DEFINE(mouse_idle_work, expire_mouse_layer);
@@ -131,9 +143,7 @@ static int mouse_idle_listener(const zmk_event_t *event) {
         if (key->position == GESTURE_POSITION && (!key->state || active)) {
             set_gesture_held(key->state);
         }
-        if (active && ((key->position >= 19 && key->position <= 21) ||
-                       key->position == WHEEL_CLICK_POSITION ||
-                       key->position == GESTURE_POSITION)) {
+        if (active && is_mouse_position(key->position)) {
             record_activity();
         }
     }
