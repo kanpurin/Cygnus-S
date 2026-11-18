@@ -16,11 +16,14 @@
 #define MOUSE_LAYER 4
 #define MOUSE_IDLE_MS 10000U
 #define GESTURE_POSITION 33
+#define NAVIGATION_POSITION 9
 #define GESTURE_THRESHOLD 24
 #define GESTURE_REPEAT_MS 80
 
 static struct k_spinlock gesture_lock;
 static bool gesture_held;
+static bool navigation_held;
+static bool navigation_sent;
 static int64_t next_arrow_at;
 static int32_t gesture_x;
 static void record_activity(void);
@@ -28,6 +31,15 @@ static void record_activity(void);
 static void set_gesture_held(bool held) {
     k_spinlock_key_t key = k_spin_lock(&gesture_lock);
     gesture_held = held;
+    next_arrow_at = 0;
+    gesture_x = 0;
+    k_spin_unlock(&gesture_lock, key);
+}
+
+static void set_navigation_held(bool held) {
+    k_spinlock_key_t key = k_spin_lock(&gesture_lock);
+    navigation_held = held;
+    navigation_sent = false;
     next_arrow_at = 0;
     gesture_x = 0;
     k_spin_unlock(&gesture_lock, key);
@@ -46,14 +58,19 @@ static int process_arrow_gesture(const struct device *dev, struct input_event *e
     uint32_t arrow = 0;
     bool moved = false;
     k_spinlock_key_t key = k_spin_lock(&gesture_lock);
-    if (gesture_held) {
+    if (gesture_held || navigation_held) {
         moved = event->value != 0;
         if (event->code == INPUT_REL_X && event->value != 0) {
             // Keep at most one step queued so fast motion cannot build up a burst.
             gesture_x = CLAMP(gesture_x + event->value, -GESTURE_THRESHOLD, GESTURE_THRESHOLD);
-            if (now >= next_arrow_at &&
+            if ((!navigation_held || !navigation_sent) && now >= next_arrow_at &&
                 (gesture_x <= -GESTURE_THRESHOLD || gesture_x >= GESTURE_THRESHOLD)) {
-                arrow = gesture_x < 0 ? LEFT_ARROW : RIGHT_ARROW;
+                if (navigation_held) {
+                    arrow = gesture_x < 0 ? LA(LEFT_ARROW) : LA(RIGHT_ARROW);
+                    navigation_sent = true;
+                } else {
+                    arrow = gesture_x < 0 ? LEFT_ARROW : RIGHT_ARROW;
+                }
                 gesture_x = 0;
                 next_arrow_at = now + GESTURE_REPEAT_MS;
             }
@@ -131,6 +148,7 @@ static int mouse_idle_listener(const zmk_event_t *event) {
             record_activity();
         } else {
             set_gesture_held(false);
+            set_navigation_held(false);
             k_work_cancel_delayable(&mouse_idle_work);
         }
     }
@@ -140,6 +158,9 @@ static int mouse_idle_listener(const zmk_event_t *event) {
         bool active = zmk_keymap_layer_active(MOUSE_LAYER);
         if (key->position == GESTURE_POSITION && (!key->state || active)) {
             set_gesture_held(key->state);
+        }
+        if (key->position == NAVIGATION_POSITION && (!key->state || active)) {
+            set_navigation_held(key->state);
         }
         if (active && is_mouse_position(key->position)) {
             record_activity();
