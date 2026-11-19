@@ -26,13 +26,6 @@
             layers = <0>;
         };
 
-        z_slash_question {
-            bindings = <&kp QUESTION>;
-            key-positions = <22 33>;
-            layers = <0>;
-            timeout-ms = <50>;
-        };
-
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
@@ -79,11 +72,11 @@
         z_tap_only: z_tap_only {
             compatible = "zmk,behavior-hold-tap";
             #binding-cells = <2>;
-            flavor = "balanced";
+            flavor = "hold-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <0>;
-            bindings = <&none>, <&kp>;
-            display-name = "Tap Z Only";
+            bindings = <&mo>, <&kp>;
+            display-name = "Z / Question Layer";
         };
 
         lt_to_layer_0: lt_to_layer_0 {
@@ -112,7 +105,7 @@
             bindings = <
 &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U  &kp I  &kp O  &kp P
 &kp A  &kp S  &kp D  &kp F  &kp G  &mkp RCLK  &kp UP_ARROW  &kp H  &kp J  &kp K  &lt 4 L  &lt 5 MINUS
-&z_tap_only 0 Z  &kp X  &kp C  &kp V  &kp B  &kp LEFT_CONTROL  &kp DOWN_ARROW  &kp N  &kp M  &kp COMMA  &kp DOT  &mt LEFT_SHIFT SLASH
+&z_tap_only 7 Z  &kp X  &kp C  &kp V  &kp B  &kp LEFT_CONTROL  &kp DOWN_ARROW  &kp N  &kp M  &kp COMMA  &kp DOT  &mt LEFT_SHIFT SLASH
 &kp LEFT_SHIFT  &kp LEFT_GUI  &kp LEFT_ALT  &lt 6 INTERNATIONAL_4  &layer1_hold_only 1 0  &mt LEFT_SHIFT SPACE  &kp BACKSPACE  &layer1_hold_only 2 0  &tog 4
             >;
 
@@ -174,6 +167,15 @@
 &trans  &trans  &trans  &trans  &trans  &trans  &studio_unlock  &kp F11  &kp F4  &kp F5  &kp F6  &trans
 &trans  &kp N1  &kp N2  &kp N3  &kt KP_N4  &trans  &bootloader  &kp F10  &kp F1  &kp F2  &kp F3  &bt BT_CLR
 &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &trans  &trans  &trans  &trans  &trans  &bt BT_CLR_ALL
+            >;
+        };
+
+        z_question_layer {
+            bindings = <
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &kp QUESTION
+&trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
     };
