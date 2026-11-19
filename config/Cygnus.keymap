@@ -26,6 +26,13 @@
             layers = <0>;
         };
 
+        z_slash_question {
+            bindings = <&kp QUESTION>;
+            key-positions = <22 33>;
+            layers = <0>;
+            timeout-ms = <50>;
+        };
+
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
