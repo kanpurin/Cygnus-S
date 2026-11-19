@@ -116,8 +116,8 @@
         FUNCTION {
             bindings = <
 &kp TAB  &kp LS(N7)  &kp LEFT_BRACKET  &kp LS(LEFT_BRACKET)  &trans  &trans  &kp RIGHT_BRACKET  &kp NON_US_HASH  &trans  &trans
-&trans  &kp LS(N4)  &kp LS(N5)  &kp LS(N6)  &kp LS(INTERNATIONAL_3)  &trans  &trans  &kp LA(LC(TAB))  &kp LS(N8)  &kp LS(N9)  &kp SEMICOLON  &kp SINGLE_QUOTE
-&kp LEFT_SHIFT  &kp LS(N1)  &kp LS(N2)  &kp LS(N3)  &trans  &trans  &trans  &trans  &kp LS(RIGHT_BRACKET)  &kp LS(NON_US_HASH)  &trans  &kp INTERNATIONAL_1
+&trans  &kp LS(N4)  &kp LS(N5)  &kp LS(N6)  &kp LS(INTERNATIONAL_3)  &trans  &kp LC(C)  &kp LA(LC(TAB))  &kp LS(N8)  &kp LS(N9)  &kp SEMICOLON  &kp SINGLE_QUOTE
+&kp LEFT_SHIFT  &kp LS(N1)  &kp LS(N2)  &kp LS(N3)  &trans  &trans  &kp LC(V)  &trans  &kp LS(RIGHT_BRACKET)  &kp LS(NON_US_HASH)  &trans  &kp INTERNATIONAL_1
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
