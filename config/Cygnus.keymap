@@ -25,6 +25,20 @@
             layers = <0>;
         };
 
+        layer2_copy {
+            bindings = <&kp LC(C)>;
+            key-positions = <10 24>;
+            layers = <2>;
+            timeout-ms = <50>;
+        };
+
+        layer2_paste {
+            bindings = <&kp LC(V)>;
+            key-positions = <10 25>;
+            layers = <2>;
+            timeout-ms = <50>;
+        };
+
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
