@@ -26,6 +26,13 @@
             layers = <0>;
         };
 
+        qtyp_text {
+            bindings = <&qtyp_text_macro>;
+            key-positions = <0 4 5 9>;
+            layers = <0>;
+            timeout-ms = <150>;
+        };
+
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
@@ -33,6 +40,16 @@
     };
 
     macros {
+        qtyp_text_macro: qtyp_text_macro {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            label = "QTYP_TEXT";
+            wait-ms = <20>;
+            tap-ms = <10>;
+            bindings = <&kp LS(K)>, <&kp A>, <&kp N>, <&kp C>, <&kp H>,
+                       <&kp I>, <&kp N1>, <&kp N7>, <&kp N2>, <&kp N9>;
+        };
+
         to_layer_0: to_layer_0 {
             compatible = "zmk,behavior-macro-one-param";
             #binding-cells = <1>;
