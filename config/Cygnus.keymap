@@ -112,9 +112,26 @@
             flavor = "hold-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <0>;
-            hold-trigger-key-positions = <24 25>;
-            bindings = <&mo>, <&kp>;
-            display-name = "A / Copy-Paste Layer";
+            bindings = <&kp>, <&kp>;
+            display-name = "A / Ctrl";
+        };
+
+        layer1_ctrl_c: layer1_ctrl_c {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Layer 1 C / Ctrl+C";
+            bindings = <&kp LS(N2)>, <&kp C>;
+            mods = <(MOD_LCTL | MOD_RCTL)>;
+            keep-mods = <(MOD_LCTL | MOD_RCTL)>;
+        };
+
+        layer1_ctrl_v: layer1_ctrl_v {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            display-name = "Layer 1 V / Ctrl+V";
+            bindings = <&kp LS(N3)>, <&kp V>;
+            mods = <(MOD_LCTL | MOD_RCTL)>;
+            keep-mods = <(MOD_LCTL | MOD_RCTL)>;
         };
 
         ROTATE: ROTATE {
@@ -144,8 +161,8 @@
         FUNCTION {
             bindings = <
 &kp TAB  &kp LS(N7)  &kp LEFT_BRACKET  &kp LS(LEFT_BRACKET)  &trans  &trans  &kp RIGHT_BRACKET  &kp NON_US_HASH  &trans  &kp EQUAL
-&layer1_copy_hold 8 A  &kp LS(N4)  &kp LS(N5)  &kp LS(N6)  &kp LS(INTERNATIONAL_3)  &trans  &kp LC(C)  &kp LA(LC(TAB))  &kp LS(N8)  &kp LS(N9)  &kp SEMICOLON  &kp SINGLE_QUOTE
-&kp LEFT_SHIFT  &kp LS(N1)  &kp LS(N2)  &kp LS(N3)  &trans  &trans  &kp LC(V)  &trans  &kp LS(RIGHT_BRACKET)  &kp LS(NON_US_HASH)  &trans  &kp INTERNATIONAL_1
+&layer1_copy_hold LEFT_CONTROL A  &kp LS(N4)  &kp LS(N5)  &kp LS(N6)  &kp LS(INTERNATIONAL_3)  &trans  &kp LC(C)  &kp LA(LC(TAB))  &kp LS(N8)  &kp LS(N9)  &kp SEMICOLON  &kp SINGLE_QUOTE
+&kp LEFT_SHIFT  &kp LS(N1)  &layer1_ctrl_c  &layer1_ctrl_v  &trans  &trans  &kp LC(V)  &trans  &kp LS(RIGHT_BRACKET)  &kp LS(NON_US_HASH)  &trans  &kp INTERNATIONAL_1
 &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans  &trans
             >;
         };
