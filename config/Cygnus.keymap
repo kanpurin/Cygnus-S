@@ -111,7 +111,7 @@
             tapping-term-ms = <200>;
             quick-tap-ms = <0>;
             bindings = <&mo>, <&kp>;
-            hold-trigger-key-positions = <33>;
+            hold-trigger-key-positions = <19 20 33>;
             display-name = "Z / Question Layer";
         };
 
