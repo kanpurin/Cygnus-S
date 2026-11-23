@@ -161,7 +161,7 @@
 &kp Q  &kp W  &kp E  &kp R  &kp T  &kp Y  &kp U  &kp I  &kp O  &kp P
 &kp A  &kp S  &kp D  &kp F  &kp G  &mkp RCLK  &kp UP_ARROW  &kp H  &kp J  &kp K  &lt 4 L  &lt 5 MINUS
 &z_tap_only 7 Z  &kp X  &kp C  &kp V  &kp B  &kp LEFT_CONTROL  &kp DOWN_ARROW  &kp N  &kp M  &kp COMMA  &kp DOT  &mt LEFT_SHIFT SLASH
-&kp LEFT_SHIFT  &kp LEFT_GUI  &kp LEFT_ALT  &lt 6 INTERNATIONAL_4  &layer1_hold_only 1 0  &mt LEFT_SHIFT SPACE  &kp BACKSPACE  &layer1_hold_only 2 0  &tog 4
+&kp LEFT_CONTROL  &kp LEFT_GUI  &kp LEFT_ALT  &lt 6 INTERNATIONAL_4  &layer1_hold_only 1 0  &mt LEFT_SHIFT SPACE  &kp BACKSPACE  &layer1_hold_only 2 0  &tog 4
             >;
 
             sensor-bindings = <&ROTATE SCRL_UP SCRL_DOWN>;
