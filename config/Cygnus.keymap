@@ -77,6 +77,14 @@
     };
 
     behaviors {
+        layer2_a_double: layer2_a_double {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <200>;
+            bindings = <&kp LEFT_CONTROL>, <&kp LC(A)>;
+            display-name = "Ctrl / Double Select All";
+        };
+
         layer2_copy: layer2_copy {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -170,7 +178,7 @@
         NUM {
             bindings = <
 &kp ESC  &kp HOME  &kp UP_ARROW  &kp END  &kp PAGE_UP  &kp LS(N6)  &kp N7  &kp N8  &kp N9  &kp LS(N0)
-&kp LEFT_CONTROL  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN  &kp LG(LA(K))  &kp LS(MINUS)  &kp LS(N1)  &kp N4  &kp N5  &kp N6  &kp LS(N5)
+&layer2_a_double  &kp LEFT_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &kp PAGE_DOWN  &kp LG(LA(K))  &kp LS(MINUS)  &kp LS(N1)  &kp N4  &kp N5  &kp N6  &kp LS(N5)
 &kp LEFT_SHIFT  &kp KP_N1  &layer2_copy  &layer2_paste  &kp DOT  &trans  &trans  &kp N0  &kp N1  &kp N2  &kp N3  &kp BACKSLASH
 &trans  &trans  &trans  &trans  &kp KP_ENTER  &trans  &trans  &trans  &kp LS(BACKSLASH)
             >;
