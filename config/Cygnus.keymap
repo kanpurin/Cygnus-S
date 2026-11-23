@@ -81,8 +81,8 @@
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp A>, <&kp LC(A)>;
-            display-name = "A / Double Select All";
+            bindings = <&none>, <&kp LC(A)>;
+            display-name = "Double Select All";
         };
 
         layer2_copy: layer2_copy {
@@ -138,6 +138,7 @@
             flavor = "hold-preferred";
             tapping-term-ms = <200>;
             quick-tap-ms = <0>;
+            hold-while-undecided;
             bindings = <&layer1_ctrl_hold>, <&layer1_a_taps>;
             display-name = "A / Ctrl";
         };
