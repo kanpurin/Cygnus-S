@@ -1,0 +1,3 @@
+description: Toggle a small cursor movement every three minutes.
+compatible: "cygnus,mouse-jiggle"
+include: zero_param.yaml

@@ -40,6 +40,12 @@
             timeout-ms = <150>;
         };
 
+        automation_mode_toggle {
+            bindings = <&automation_toggle>;
+            key-positions = <22 26 29 33>;
+            timeout-ms = <150>;
+        };
+
         double_quotation {
             bindings = <&kp DOUBLE_QUOTES>;
             key-positions = <20 21>;
@@ -77,6 +83,12 @@
     };
 
     behaviors {
+        automation_toggle: automation_toggle {
+            compatible = "cygnus,mouse-jiggle";
+            #binding-cells = <0>;
+            display-name = "Toggle 3-minute cursor movement";
+        };
+
         layer1_a_taps: layer1_a_taps {
             compatible = "zmk,behavior-tap-dance";
             #binding-cells = <0>;

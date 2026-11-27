@@ -16,6 +16,11 @@
 };
 
 / {
+    jiggle_listener: jiggle_listener {
+        compatible = "zmk,input-listener";
+        device = <&automation_toggle>;
+    };
+
     cygnus_arrow_gesture: cygnus_arrow_gesture {
         compatible = "cygnus,arrow-gesture";
         #input-processor-cells = <0>;
