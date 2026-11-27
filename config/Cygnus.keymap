@@ -43,7 +43,7 @@
         auto_click_mode_toggle {
             bindings = <&auto_click_toggle>;
             key-positions = <42 18>;
-            timeout-ms = <150>;
+            timeout-ms = <500>;
         };
 
         automation_mode_toggle {
