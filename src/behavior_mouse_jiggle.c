@@ -5,6 +5,8 @@
 #include <drivers/behavior.h>
 #include <zmk/behavior.h>
 
+#if DT_HAS_COMPAT_STATUS_OKAY(DT_DRV_COMPAT)
+
 #if DT_NODE_HAS_STATUS(DT_NODELABEL(jiggle_listener), okay)
 #include <zephyr/input/input.h>
 
@@ -62,3 +64,5 @@ static const struct behavior_driver_api jiggle_api = {
 
 BEHAVIOR_DT_INST_DEFINE(0, NULL, NULL, NULL, NULL, POST_KERNEL,
                        CONFIG_KERNEL_INIT_PRIORITY_DEFAULT, &jiggle_api);
+
+#endif
